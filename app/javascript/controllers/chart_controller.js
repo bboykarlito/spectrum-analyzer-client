@@ -7,16 +7,27 @@ export default class extends Controller {
     static targets = ['myChart'];
     static values = { chanels: Array };
 
-    canvasContext() {
-        return this.myChartTarget.getContext('2d');
+    initialize() {  
+        this.chartInstance = null;
     }
 
     connect() {
-        let chanelValues = this.chanelsValue;
+        console.log("Connection established");
+    }
+
+    chanelsValueChanged(value, prevValue) {
+        if(this.chartInstance) {
+            this.chartInstance.destroy();
+        }
+
+        this.chartInstance = this.create_chart(value);
+    }
+
+    create_chart(chanelValues) {
         chanelValues.map((ch) =>
             console.log(ch.rssi)
         )
-        new Chart(this.canvasContext(), {
+        return new Chart(this.canvasContext(), {
             type: 'line',
             data: {
                 labels: chanelValues.map((ch) => `${ch.frequency} MHz`),
@@ -36,5 +47,9 @@ export default class extends Controller {
                 }
             }
         });
+    }
+
+    canvasContext() {
+        return this.myChartTarget.getContext('2d');
     }
 }
