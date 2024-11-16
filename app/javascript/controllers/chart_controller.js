@@ -27,6 +27,19 @@ export default class extends Controller {
         chanelValues.map((ch) =>
             console.log(ch.rssi)
         )
+
+        const plugin = {
+            id: 'customCanvasBackgroundColor',
+            beforeDraw: (chart, args, options) => {
+                const {ctx} = chart;
+                ctx.save();
+                ctx.globalCompositeOperation = 'destination-over';
+                ctx.fillStyle = '#1f304f';
+                ctx.fillRect(0, 0, chart.width, chart.height);
+                ctx.restore();
+            }
+        };
+
         return new Chart(this.canvasContext(), {
             type: 'line',
             data: {
@@ -34,18 +47,26 @@ export default class extends Controller {
                 datasets: [{
                     label: 'RSSI',
                     data: chanelValues.map((ch) => ch.rssi),
-                    fill: false,
+                    fill: true,
                     borderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgb(96, 126, 181)',
                     tension: 0.1
                 }]
             },
             options: {
+                animation: {
+                  duration: 0
+                },
                 scales: {
                     y: {
                         beginAtZero: true
                     }
+                },
+                plugins: {
+                    customCanvasBackgroundColor: {}
                 }
-            }
+            },
+            plugins: [plugin],
         });
     }
 

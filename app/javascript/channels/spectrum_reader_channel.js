@@ -6,7 +6,7 @@ consumer.subscriptions.create("SpectrumReaderChannel", {
   },
 
   received(data) {
-    console.log("Hello");
+    console.log("New data received");
     const element = document.querySelector("#graph-container")
     element.setAttribute("data-chart-chanels-value", data.body);
   }

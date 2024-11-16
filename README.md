@@ -1,24 +1,18 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The spectrum analyzer client is able to present data from the spectrum analyzer on the web page. It uses spectrum analyzer properly formatted log files to get the data to present.
 
-Things you may want to cover:
+## Setup
 
-* Ruby version
+* `bundle install`
+* `bin/rails assets:precompile`
 
-* System dependencies
+## Everyday usage
 
-* Configuration
+* `redis-server`
+* `rails s`
 
-* Database creation
+## TODO
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Handle several states (current and two previous ones)
+* Highlight signals with different colors
